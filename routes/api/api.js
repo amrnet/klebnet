@@ -6,7 +6,7 @@ import connectDB, { getCollectionCountWithTimeout, getDataWithTimeout } from '..
 const router = express.Router();
 
 const dbAndCollectionNames = {
-  kpneumo: { dbName: 'kpneumo', collectionName: 'amrnetdb_kpneumo' },
+  kpneumo: { dbName: 'klebnet', collectionName: 'klebnet' },
   unr: { dbName: 'unr', collectionName: 'unr' },
 };
 
