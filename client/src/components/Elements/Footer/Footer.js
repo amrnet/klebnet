@@ -1,8 +1,7 @@
 import { AppBar, IconButton, Toolbar, Tooltip } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { useStyles } from './FooterMUI';
-import { GitHub, Api } from '@mui/icons-material';
-import LSHTMLogoImg from '../../../assets/img/Sponsors/LSHTMLogo2020.jpg';
+import { GitHub } from '@mui/icons-material';
 import WellcomeTrustLogoImg from '../../../assets/img/Sponsors/Wellcome_Trust_logo.png';
 
 export const Footer = () => {
@@ -10,15 +9,7 @@ export const Footer = () => {
   const { t } = useTranslation();
 
   function handleClickGithub() {
-    window.open('https://github.com/amrnet/amrnet', '_blank');
-  }
-
-  function handleClickApi() {
-    window.open('https://api.amrnet.org', '_blank');
-  }
-
-  function handleClickLSHTM() {
-    window.open('https://www.lshtm.ac.uk/amrnet', '_blank');
+    window.open('https://github.com/amrnet/klebnet', '_blank');
   }
 
   function handleClickWT() {
@@ -31,14 +22,6 @@ export const Footer = () => {
         <div className={classes.logosWrapper}>
           <img
             className={classes.logo}
-            onClick={handleClickLSHTM}
-            src={LSHTMLogoImg}
-            alt="LSHTM Logo"
-            loading="lazy"
-            height={60}
-          />
-          <img
-            className={classes.logo}
             onClick={handleClickWT}
             src={WellcomeTrustLogoImg}
             alt="Wellcome Trust Logo"
@@ -47,11 +30,6 @@ export const Footer = () => {
           />
         </div>
         <div className={classes.socialsWrapper}>
-          <Tooltip title="API documentation (api.amrnet.org)" placement="top">
-            <IconButton onClick={handleClickApi}>
-              <Api fontSize="large" />
-            </IconButton>
-          </Tooltip>
           <Tooltip title={t('common.github')} placement="top">
             <IconButton onClick={handleClickGithub}>
               <GitHub fontSize="large" />
