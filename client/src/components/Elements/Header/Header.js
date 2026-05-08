@@ -3,7 +3,6 @@ import { AppBar, Box, Collapse, IconButton, Toolbar, useMediaQuery } from '@mui/
 import { useMemo, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import LogoImg from '../../../assets/img/logo-prod.png';
-import LSHTMImg from '../../../assets/img/LSHTM.Logo.png';
 import { useAppDispatch, useAppSelector } from '../../../stores/hooks';
 import { setOpenDrawer } from '../../../stores/slices/appSlice.ts';
 import LanguageSwitcher from '../../LanguageSwitcher';
@@ -76,11 +75,6 @@ export const Header = () => {
             {((!isDashboardPage && matches1000) || (isHomePage && !matches999)) && <MenuHead />}
             <Box sx={{ marginLeft: 'auto', display: 'flex', alignItems: 'center', gap: 2 }}>
               {isHomePage && <LanguageSwitcher />}
-              {(!isDashboardPage || isHomePage) && matches200 && (
-                <a href="https://www.lshtm.ac.uk/amrnet" target="_blank" rel="noopener noreferrer">
-                  <img src={LSHTMImg} alt="AMRnet" className={classes.logo} />
-                </a>
-              )}
             </Box>
             {/* {!isHomePage && !isDashboardPage && !matches500 && (
               <Typography className={classes.title} variant={matches500 ? 'h6' : 'h5'} fontWeight={500}>

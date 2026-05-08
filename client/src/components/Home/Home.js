@@ -102,7 +102,15 @@ export const HomePage = () => {
           </Grid>
         </CardContent>
       </Card>
-      {/* <Footer /> */}
+      <div className={classes.supportFooter}>
+        <div>
+          Supported by the University of Oxford, Institut Pasteur, Monash University,
+          University of Warwick, Stellenbosch University and the London School of Hygiene &amp; Tropical Medicine
+        </div>
+        <div className={classes.supportFooterFunding}>
+          Funded in part by the Gates Foundation
+        </div>
+      </div>
     </MainLayout>
   );
 };

@@ -52,6 +52,21 @@ const useStyles = makeStyles((_theme) => ({
   },
 
   mobile: {},
+
+  supportFooter: {
+    padding: '24px 16px',
+    marginTop: '24px',
+    textAlign: 'center',
+    color: '#555',
+    fontSize: '0.85rem',
+    lineHeight: 1.5,
+    borderTop: '1px solid #e0e0e0',
+  },
+
+  supportFooterFunding: {
+    marginTop: '8px',
+    fontWeight: 500,
+  },
 }));
 
 export { useStyles };
