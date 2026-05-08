@@ -28,16 +28,17 @@ i18n
   .use(initReactI18next)
   .init({
     resources,
-    // Do NOT set `lng` — that would override the LanguageDetector and force
-    // English on every page load. Let the detector pick from localStorage
-    // first (persisted choice), then the browser language, then the HTML
-    // tag, falling back to English if none matches.
+    // Default to English. Detection order is localStorage (so the user's
+    // explicit choice via the LanguageSwitcher persists across visits)
+    // then htmlTag (which is `en`). Browser `navigator` language is
+    // intentionally NOT consulted — that was making the dashboard render
+    // in pt/es/fr for visitors with a non-English OS locale on first load.
     fallbackLng: 'en',
     supportedLngs: ['en', 'fr', 'pt', 'es'],
     debug: false,
 
     detection: {
-      order: ['localStorage', 'navigator', 'htmlTag'],
+      order: ['localStorage', 'htmlTag'],
       lookupLocalStorage: 'i18nextLng',
       caches: ['localStorage'],
     },
