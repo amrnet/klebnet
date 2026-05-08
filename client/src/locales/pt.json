@@ -1,0 +1,603 @@
+{
+  "appTitle": "KlebNET-GSP",
+  "welcomeMessage": "Bem-vindo ao painel do KlebNET-GSP",
+  "dashboard": {
+    "title": "Painel AMRnet",
+    "description": "Esta é a página principal do painel do AMRnet. Aqui você pode visualizar e gerenciar vários aspectos do sistema.",
+    "legend": {
+      "showing": "Mostrando: {{value}}",
+      "insufficientData": "Dados insuficientes",
+      "zeroPercent": "0%"
+    },
+    "tooltip": {
+      "total": "Total: {{total}}",
+      "insufficientData": "Dados insuficientes",
+      "showFilters": "Mostrar filtros",
+      "hideFilters": "Ocultar filtros"
+    },
+    "globalOverviewLabel": "Visão geral{{dataview}}: {{mapView}}",
+    "filters": {
+      "optimized": {
+        "title": "Opções de visualização geral global",
+        "colorBy": "Colorir países por:",
+        "selectDrugs": "Selecionar medicamentos:",
+        "allDrugs": "Todos os medicamentos",
+        "selectedCount": "{{count}} selecionados",
+        "close": "Fechar"
+      },
+      "plotOptions": {
+        "title": "Opções de plotagem",
+        "hideTooltip": "Ocultar opções de plotagem",
+        "showTooltip": "Mostrar opções de plotagem",
+        "colorBy": "Colorir países por",
+        "percentageTooltip": "Os dados percentuais são exibidos apenas para países com ≥20 genomas, exceto 'No. Samples'",
+        "selectDrugs": "Selecione um ou mais medicamentos",
+        "chooseDrugsTooltip": "Escolha uma ou mais categorias de medicamentos para ver sua prevalência. Selecionar várias categorias mostra apenas sua prevalência compartilhada",
+        "selectLabel": "Selecionar {{label}}",
+        "selectDrugsLabel": "Selecionar medicamentos/classes para exibir",
+        "search": "Buscar...",
+        "searchMore": "Buscar mais...",
+        "clearAll": "Limpar tudo",
+        "selectAll": "Selecionar tudo",
+        "selectedCount": "{{count}} de {{total}} selecionados",
+        "nonResTooltip": "Se o total de {{label}} for muito grande, apenas as primeiras 20 opções são mostradas por vez",
+        "labels": {
+          "O": "O",
+          "H": "H",
+          "pathotypes": "patotipos",
+          "serotypes": "sorotipos",
+          "NGMAST": "NG-MAST",
+          "lineages": "linhagens",
+          "STs": "STs",
+          "genotypes": "genótipos"
+        },
+        "definitions": {
+          "XDR": {
+            "styphi": "XDR, extremamente resistente a múltiplos medicamentos (MDR mais resistente a ciprofloxacino e ceftriaxona)",
+            "ngono": "XDR, extremamente resistente a múltiplos medicamentos (resistente a dois de Azitromicina, Ceftriaxona, Cefixima [drogas da categoria I], E resistente a Benzilpenicilina, Ciprofloxacino e Spectinomicina [categoria II])"
+          },
+          "MDR": {
+            "styphi": "MDR, resistente a múltiplos medicamentos (resistente a ampicilina, cloranfenicol e trimetoprima-sulfametoxazol)",
+            "ngono": "MDR, resistente a múltiplos medicamentos (resistente a um dos Azitromicina, Ceftriaxona, Cefixima [categoria I], mais dois ou mais de Benzilpenicilina, Ciprofloxacino, Spectinomicina [categoria II])"
+          }
+        },
+        "info": {
+          "decoli": "As linhagens são rotuladas como Patovar (ST) e MLST de 7 loci",
+          "kpneumo": "Os tipos de sequência são rotulados como MLST de 7 loci",
+          "shige": "As linhagens são rotuladas como Espécie + cluster HC400",
+          "sentericaints": "As linhagens são rotuladas como MLST de 7 loci e cluster HC150(305,1547,48,9882,728,12675,2452)"
+        }
+      }
+    },
+    "mapViews": {
+      "resistancePrevalence": "Prevalência de resistência",
+      "sampleCount": "Número de amostras",
+      "genotypePrevalence": "Prevalência de genótipos",
+      "stPrevalence": "Prevalência de ST",
+      "lineagePrevalence": "Prevalência de linhagens",
+      "ngmastPrevalence": "Prevalência NG-MAST",
+      "serotypePrevalence": "Prevalência de sorotipos",
+      "pathotypePrevalence": "Prevalência de patotipos",
+      "oPrevalence": "Prevalência O",
+      "hPrevalence": "Prevalência H",
+      "ngMastPrevalence": "Prevalência NG-MAST",
+      "dominantGenotype": "Genótipo dominante"
+    }
+  },
+  "home": {
+    "genomes": "Genomas"
+  },
+  "navigation": {
+    "home": "Início",
+    "about": "Sobre",
+    "team": "Equipe",
+    "contact": "Contato",
+    "database": "Base de Dados",
+    "userguide": "Guia do Usuário"
+  },
+  "team": {
+    "post": {
+      "Principal Investigator": "Investigador Principal",
+      "Genomic Epidemiologist": "Epidemiologista Genômico",
+      "Lead Software Engineer/Computational Biologist": "Engenheiro de Software Principal/Biólogo Computacional",
+      "Software Engineer": "Engenheiro de Software",
+      "Policy Engagement": "Engajamento em Políticas",
+      "Bioinformatician": "Bioinformático",
+      "Research Software Engineer": "Engenheiro de Software de Pesquisa"
+    }
+  },
+  "about": {
+    "title": "Sobre",
+    "pageTitle": "Sobre o AMRnet",
+    "subtitle": "Rede de Vigilância da Resistência Antimicrobiana",
+    "paragraph1": "O painel do AMRnet visa tornar dados de vigilância de RAM derivados do genoma de alta qualidade, robustos e confiáveis acessíveis a um público amplo. As visualizações são orientadas para mostrar estimativas anuais nacionais de prevalência de RAM e tendências ao longo do tempo, que podem ser decompostas e exploradas em termos de genótipos subjacentes e mecanismos de resistência. Não geramos dados de sequência, mas esperamos que ao tornar os dados depositados publicamente mais acessíveis e úteis, possamos encorajar e motivar mais sequenciamento e compartilhamento de dados.",
+    "paragraph2": {
+      "intro": "Começamos com Salmonella Typhi e construímos sobre nosso painel",
+      "typhiNet": "TyphiNET",
+      "middle1": "que usa dados que foram curados pelo",
+      "globalTyphoid": "Consórcio Global de Genômica de Tifoide",
+      "middle2": "(para melhorar a qualidade dos dados e identificar quais conjuntos de dados são adequados para inclusão) e analisados no",
+      "pathogenwatch1": "Pathogenwatch",
+      "middle3": "(para identificar determinantes de RAM e linhagens a partir de dados de sequência). Organismos adicionais foram adicionados, usando dados obtidos do",
+      "pathogenwatch2": "Pathogenwatch",
+      "middle4": ", e",
+      "enterobase": "Enterobase",
+      "end": ", no entanto estes painéis estão em modo beta pois a curadoria de dados ainda está em andamento. Mais organismos serão adicionados ao longo de 2025."
+    },
+    "paragraph3": {
+      "text": "Uma barreira importante para usar dados públicos para vigilância é a necessidade de curadoria cuidadosa de dados para identificar quais conjuntos de dados são relevantes para inclusão em estimativas agrupadas de prevalência de RAM e genótipo. Este tipo de curadoria pode beneficiar uma ampla gama de usuários e planejamos trabalhar com comunidades adicionais específicas de organismos para curar dados, e contribuir para esforços mais amplos sobre padrões de metadados. Entre em contato se gostaria de trabalhar conosco (",
+      "contact": "amrnetdashboard@gmail.com",
+      "end": ")"
+    },
+    "paragraph4": {
+      "text": "Saiba mais sobre a equipe do projeto (baseada na London School of Hygiene and Tropical Medicine), e nosso grupo consultivo de políticas,",
+      "linkText": "aqui",
+      "end": "."
+    },
+    "paragraph5": {
+      "intro": "O código do painel é de acesso aberto e está disponível no",
+      "github": "GitHub",
+      "middle1": ". junto com",
+      "userGuide": "guia do usuário",
+      "middle2": "e",
+      "api": "API",
+      "middle3": "para acessar os dados. Problemas e solicitações de recursos podem ser postados",
+      "issues": "aqui",
+      "end": "."
+    },
+    "citation": {
+      "title": "Citação para AMRnet",
+      "intro": "Se você usar o site ou código do AMRnet, por favor cite Cerdeira LT, Dyson ZA, Sharma V, et al. AMRnet: a data visualization platform to interactively explore pathogen variants and antimicrobial resistance. Nucleic Acids Res. Published online November 6, 2025.",
+      "githubLabel": "GitHub:",
+      "githubUrl": "https://github.com/amrnet/amrnet",
+      "doiLabel": "DOI:",
+      "doiUrl": "https://doi.org/10.1093/nar/gkaf1101"
+    },
+    "funding": "O projeto é financiado pelo Wellcome Trust (subvenção 226432/Z/22/Z).",
+    "links": {
+      "typhiNet": "https://www.typhi.net",
+      "globalTyphoidGenomics": "http://typhoidgenomics.org",
+      "pathogenWatch": "http://pathogen.watch",
+      "enterobase": "https://enterobase.warwick.ac.uk/",
+      "contact": "mailto:amrnetdashboard@gmail.com",
+      "teamInfo": "https://www.lshtm.ac.uk/amrnet",
+      "github": "https://github.com/amrnet/amrnet",
+      "userGuide": "https://amrnet.readthedocs.io/en/latest",
+      "api": "https://amrnet.readthedocs.io/en/latest/data.html",
+      "issues": "https://github.com/amrnet/amrnet/issues",
+      "githubRepo": "https://github.com/amrnet/amrnet",
+      "doi": "https://zenodo.org/doi/10.5281/zenodo.10810218"
+    }
+  },
+  "formValidation": {
+    "requiredField": "Este campo é obrigatório.",
+    "invalidEmail": "Por favor, insira um endereço de e-mail válido."
+  },
+  "notifications": {
+    "success": "Operação bem-sucedida!",
+    "error": "Ocorreu um erro. Por favor, tente novamente."
+  },
+  "buttons": {
+    "submit": "Enviar",
+    "cancel": "Cancelar",
+    "save": "Salvar",
+    "edit": "Editar",
+    "delete": "Excluir",
+    "view": "Visualizar"
+  },
+  "table": {
+    "noData": "Nenhum dado disponível.",
+    "rowsPerPage": "Linhas por página:",
+    "of": "de"
+  },
+  "layout": {
+    "loadingThanks": "Obrigado por sua paciência"
+  },
+  "note": {
+    "styphi": "Os dados de Typhi são curados pelo <0>Consórcio Global de Genômica de Tifoide</0> e analisados usando o <1>Pathogenwatch</1>.",
+    "ngono": "<0>N. gonorrhoeae</0> representa projetos de vigilância nacionais e regionais, com dados obtidos do <1>Pathogenwatch</1>.",
+    "kpneumo": "Esses dados são retirados do <0>Pathogenwatch</0> e representam dados não filtrados depositados no NCBI/ENA. Incluem diversas fontes de bactérias (não apenas infecções clínicas humanas) e têm viés para sequenciamento de linhagens resistentes. Nas próximas atualizações isso será compensado com metadados curados pelo <1>Consórcio Epidemiológico KlebNET</1>.",
+    "default": "Esses dados são retirados do <0>Enterobase</0> e representam dados não filtrados depositados no Enterobase/NCBI/ENA, portanto podem refletir um viés para sequenciamento de linhagens resistentes e/ou surtos. Isso mudará nas próximas atualizações.",
+    "senterica": "Esses dados são retirados do <0>Enterobase</0> e representam dados não filtrados depositados no Enterobase/NCBI/ENA, portanto podem refletir um viés para sequenciamento de linhagens resistentes e/ou surtos. Isso mudará nas próximas atualizações. Salmonella Typhi tem um painel dedicado curado pelo <1>TyphiNET</1>.",
+    "saureus": "Esses dados são retirados do <0>Pathogenwatch</0>, portanto podem refletir um viés para sequenciamento de linhagens resistentes e/ou surtos. Isso mudará nas próximas atualizações.",
+    "strepneumo": "Esses dados são retirados do <0>Pathogenwatch</0>, portanto podem refletir um viés para sequenciamento de linhagens resistentes e/ou surtos. Isso mudará nas próximas atualizações."
+  },
+  "graphs": {
+    "selectedPathotypes": "Patotipos selecionados: {{selected}}",
+    "selectedSerotypes": "Sorotipos selecionados: {{selected}}",
+    "selectedGenotypes": "Genótipos selecionados: {{selected}}",
+    "graphs": "Gráficos resumo",
+    "dataPlottedForYearsWithNGreaterThan10Genomes": "Dados plotados para anos com N ≥ 10 genomas",
+    "amrTrends": "Tendências de RAM",
+    "genotypeTrends": "Tendências de Genótipos",
+    "amrByLineage": "RAM por Linhagem",
+    "amrByST": "RAM por ST",
+    "amrByGenotype": "RAM por Genótipo",
+    "amrMarkerTrends": "Tendências de Marcadores de RAM",
+    "amrMarkerByGenotype": "Marcadores de RAM por Genótipo",
+    "amrMarkerByLineage": "Marcadores de RAM por Linhagem",
+    "amrMarkerByST": "Marcadores de RAM por ST",
+    "amrVirulence": "RAM por Virulência",
+    "lineageTrends": "Tendências de Linhagens",
+    "stTrends": "Tendências de ST",
+    "koTrends": "Tendências K/O",
+    "koByGenotype": "K/O por Genótipo",
+    "geographicComparisons": "Comparações Geográficas",
+    "serotypeComparisons": "Comparações por Sorotipo",
+    "pathotypeComparisons": "Comparações por Patótipo",
+    "amrbyserotype": "RAM por sorotipo",
+    "topGenotypesUpTo10": "Principais Genótipos (até 10)",
+    "topGenotypesUpTo30": "Principais Genótipos (até 30)",
+    "radarProfile": "Perfil Radar de RAM",
+    "radarProfileDescription": "Compare perfis de multirresistência entre países/regiões (N≥20)",
+    "temporalHeatmap": "Mapa de Calor Temporal",
+    "temporalHeatmapDescription": "Prevalência de resistência por país ao longo do tempo para uma droga selecionada",
+    "emergenceRate": "Taxa de Emergência de Resistência",
+    "emergenceRateDescription": "Mudança anual média na prevalência de resistência (%/ano) — identifica resistência em aceleração",
+    "qrdrMutations": "Mutações QRDR",
+    "vaccineCoverage": "Cobertura vacinal"
+  },
+  "amrInsights": {
+    "title": "Análises de RAM",
+    "tabs": {
+      "genomicVsPhenotypic": "Genômico vs Fenotípico",
+      "convergenceMap": "Virulência-Resistência",
+      "geneMap": "Resistência por Gene",
+      "qrdrPathway": "Mutações QRDR",
+      "serotypeResistance": "Cobertura Vacinal",
+      "pmenClones": "Clones PMEN",
+      "cooccurrence": "Co-ocorrência de RAM",
+      "atbCorrelation": "Uso de AM vs Resistência",
+      "oneHealthSource": "Fontes One Health",
+      "linCode": "Linhagens LIN code"
+    },
+    "gvp": {
+      "compareTooltip": "Compara previsões de resistência derivadas do genoma do AMRnet com dados de vigilância fenotípica. Cada ponto = um país. Pontos na diagonal = concordância perfeita. Barras de erro = IC Wilson 95% na estimativa genômica.",
+      "phenotypicSource": {
+        "label": "Fonte fenotípica:",
+        "literature": "Literatura de vigilância publicada (recomendada)",
+        "typhiLiterature": "Literatura específica para Typhi (recomendada)",
+        "downloadCSV": "Baixar dados da fonte fenotípica em CSV",
+        "downloadCSVGlass": "Baixar dados da fonte fenotípica em CSV (WHO GLASS)"
+      },
+      "specimenNote": "WHO GLASS 2022 não inclui dados de <em>E. coli</em> baseados em fezes. Os valores fenotípicos mostrados são de isolados de sangue e urina, que podem diferir das cepas entéricas (diarreogênicas).",
+      "specimenNoteLabel": "Nota sobre amostras:",
+      "glassCaveat": "WHO GLASS rastreia todos os isolados de <em>Salmonella</em> da corrente sanguínea — S. Typhi e Salmonella não tifoide (NTS) <strong>não são separadas</strong>. As taxas de CipNS diferem substancialmente entre Typhi e NTS. Esta comparação pode ser enganosa. Considere mudar para \"Literatura específica para Typhi\".",
+      "glassCaveatLabel": "Advertência sobre dados GLASS:",
+      "typhiSpecific": "Dados fenotípicos específicos para Typhi de estudos de vigilância publicados (2008–2022). A cobertura por país é limitada; os intervalos de anos variam por país. Não é um conjunto de dados unificado. Consulte o painel de metodologia para ver as fontes.",
+      "typhiSpecificLabel": "Dados fenotípicos específicos para Typhi",
+      "correlationStatistics": "Estatísticas de correlação",
+      "pearson": "r de Pearson",
+      "regression": "Regressão",
+      "concordance": "Concordância",
+      "errorMetrics": "Métricas de erro",
+      "methodology": "Metodologia",
+      "meanAbsDiff": "Diferença absoluta média",
+      "medianAbsDiff": "Diferença absoluta mediana",
+      "weightedMAD": "MAD ponderada (por N)",
+      "countriesCompared": "Países comparados",
+      "overestimate": "Superestimativas genômicas",
+      "underestimate": "Subestimativas genômicas",
+      "errorBars": "Intervalos de confiança de Wilson 95% sobre a proporção genômica (mais precisos do que a aproximação normal para N pequeno ou proporções extremas).",
+      "errorBarsLabel": "Barras de erro:",
+      "bubbleSize": "Tamanho da bolha ∝ número de genomas AMRnet.",
+      "bubbleSizeLabel": "Tamanho da bolha",
+      "percentagePoints": "pp",
+      "title": "Genômico (AMRnet) vs Resistência Fenotípica",
+      "perfectAgreement": "Concordância perfeita",
+      "yAxis": "Resistência Genômica — AMRnet (%)",
+      "xAxisTyphiLiterature": "CipNS Fenotípico — Literatura (%)",
+      "xAxisLiteratureNgono": "Resistência CIP Fenotípica — WHO GASP/Literatura (%)",
+      "xAxisLiteratureStrepneumo": "Resistência SXT Fenotípica — Literatura (%)",
+      "xAxisLiteratureDefault": "Resistência Fenotípica — Literatura (%)",
+      "xAxisGlass": "Resistência Fenotípica — WHO GLASS (%)",
+      "matchingLabel": "Correspondência:",
+      "matching": "Países presentes em ambos AMRnet e GLASS (N≥20 genomas AMRnet, N≥10 isolados GLASS testados).",
+      "concordanceLabel": "Concordância:",
+      "concordanceText": "Um país é concordante se o valor fenotípico estiver dentro do IC de Wilson 95% da estimativa genômica do AMRnet.",
+      "correlationsLabel": "Correlações:",
+      "correlations": "O r de Pearson mede a associação linear. O ρ de Spearman mede a correlação por postos (robusto a valores atípicos e a distribuições não-normais).",
+      "drugMappingLabel": "Mapeamento de fármacos:",
+      "caveatsLabel": "Ressalvas:",
+      "drugMappingTyphiLiterature": "Fenotípico = CipNS (I+R) da literatura específica por país. Genômico = marcadores de Ciprofloxacina NS (AMRnet). CipNS definido como ≥1 mutação QRDR (gyrA/parC) ou gene adquirido de resistência a fluoroquinolonas.",
+      "caveatsTyphiLiterature": "(1) Os dados da literatura usam diferentes intervalos de anos por país — não é um único instantâneo; (2) A maioria dos estudos é hospitalar e pode superestimar a resistência em relação à carga comunitária; (3) CipNS genômico (mutações QRDR) pode superestimar ligeiramente os pontos de corte fenotípicos CipNS MIC ≥0,06; (4) Os genomas públicos do AMRnet podem sobrerrepresentar isolados resistentes.",
+      "caveatsLiterature": "(1) Os dados da literatura usam diferentes intervalos de anos por país — não é um único conjunto unificado; (2) O ECDC EARS-Net cobre apenas a UE/EEE; dados não-UE provêm de vários programas nacionais com metodologias distintas; (3) Os genomas públicos do AMRnet podem sobrerrepresentar isolados resistentes provenientes de investigações de surtos; (4) Os pontos de corte genotípicos e fenotípicos podem diferir ligeiramente.",
+      "caveatsGlass": "(1) Discrepância de período temporal — o AMRnet agrega ao longo dos anos disponíveis, enquanto o GLASS usa estimativas de um único ano; (2) Viés de amostragem — genomas públicos podem sobrerrepresentar isolados resistentes; (3) Diferenças populacionais — o GLASS captura amostras clínicas, enquanto o AMRnet captura todos os genomas públicos."
+    },
+    "stratified": {
+      "drugLabel": "Fármaco",
+      "stratifyByLabel": "Estratificar por",
+      "minNLabel": "N mínimo",
+      "topNLabel": "Top N",
+      "fields": {
+        "source_niche": "source_niche (amplo: Humano / Animal / Ambiente / …)",
+        "source_type": "source_type (específico: Bovino / Aviário / …)",
+        "LINcode_3": "LINcode_3 (clusters amplos)",
+        "LINcode_5": "LINcode_5 (médio)",
+        "LINcode_7": "LINcode_7 (fino)"
+      },
+      "empty": "Nenhum estrato de {{field}} possui ≥{{minN}} registos. Reduza o limiar Min-N ou escolha um estrato mais amplo.",
+      "coverageLabel": "Cobertura:",
+      "coverage": "{{withField}} de {{total}} genomas ({{pct}}%) têm um valor de {{field}} preenchido. Registos sem metadados são excluídos do gráfico.",
+      "suppressLabel": "Supressão:",
+      "suppress": "Estratos com N<{{minN}} são ocultados para manter estimativas de prevalência estatisticamente significativas."
+    }
+  },
+  "continentGraphs": {
+    "tabs": {
+      "heatmap": "Mapa de calor",
+      "radarProfile": "Perfil de Radar AMR"
+    },
+    "plottedYears": "Os dados são plotados para anos com N ≥ 10 genomas",
+    "restrictedData": "Os dados são restritos aos filtros globais selecionados (Ano {{start}} - {{end}}) {{dataset}}, e às regiões/países com N≥20 que passam nesses filtros.",
+    "tooltip": {
+      "downloadData": "Baixar dados",
+      "downloadChart": "Baixar gráfico como PNG",
+      "downloadMap": "Baixar mapa como PNG",
+      "hideFilters": "Ocultar filtros",
+      "showFilters": "Mostrar filtros"
+    },
+    "alert": {
+      "downloadError": "Algo deu errado com o download, por favor tente novamente mais tarde."
+    },
+    "pdf": {
+      "title": "Comparações geográficas",
+      "organism": "Organismo: {{label}}",
+      "dataset": "Conjunto de dados: {{label}}",
+      "timePeriod": "Período: {{start}} a {{end}}",
+      "totalGenomes": "Total: {{count}} genomas",
+      "drugGene": "{{drugClass}} : Gene {{gene}}"
+    }
+  },
+  "floatingGlobalFilters": {
+    "title": "Filtros globais",
+    "tooltip": {
+      "hideFilters": "Ocultar filtros",
+      "openFilters": "Filtros globais"
+    }
+  },
+  "topLeftControls": {
+    "title": "Filtros",
+    "appliedToPlots": "Aplicado a todos os gráficos",
+    "selectDataset": "Selecionar conjunto de dados",
+    "selectSerotype": "Selecionar sorotipo",
+    "selectPathotype": "Selecionar patotipo",
+    "placeholder": {
+      "select": "Selecionar..."
+    }
+  },
+  "informationCards": {
+    "totalGenomes": "Total de genomas",
+    "totalLineages": "Total de linhagens",
+    "totalSTs": "Total de STs",
+    "totalGenotypes": "Total de genótipos"
+  },
+  "login": {
+    "title": "Entrar no AMRnet",
+    "username": "Nome de usuário",
+    "password": "Senha",
+    "loginButton": "Entrar",
+    "forgotPassword": "Esqueceu a senha?",
+    "registerPrompt": "Não tem uma conta?",
+    "registerLink": "Registre-se aqui"
+  },
+  "register": {
+    "title": "Registrar-se no AMRnet",
+    "username": "Nome de usuário",
+    "email": "E-mail",
+    "password": "Senha",
+    "confirmPassword": "Confirmar senha",
+    "registerButton": "Registrar",
+    "loginPrompt": "Já tem uma conta?",
+    "loginLink": "Entre aqui"
+  },
+  "profile": {
+    "title": "Perfil do Usuário",
+    "name": "Nome",
+    "email": "E-mail",
+    "role": "Função",
+    "lastLogin": "Último acesso"
+  },
+  "settings": {
+    "title": "Configurações",
+    "language": "Idioma",
+    "theme": "Tema",
+    "notifications": "Notificações"
+  },
+  "downloadData": {
+    "downloadDatabase": "Baixar base de dados (formato TSV)",
+    "downloadPDF": "Visualizar relatório",
+    "infoAndDefinitions": "Informações e Definições"
+  },
+  "organisms": {
+    "styphi": {
+      "genus": "Salmonella",
+      "species": "Typhi",
+      "abbr": "S. Typhi"
+    },
+    "sentericaints": {
+      "genus": "Salmonella",
+      "species": "(não tifoide invasiva)",
+      "abbr": "Salmonella (iNTS)"
+    },
+    "senterica": {
+      "genus": "Salmonella",
+      "species": "(não tifoide)",
+      "abbr": "S. enterica (NTS)"
+    },
+    "ngono": {
+      "genus": "Neisseria gonorrhoeae",
+      "species": "",
+      "abbr": "N. gonorrhoeae"
+    },
+    "kpneumo": {
+      "genus": "Klebsiella pneumoniae",
+      "species": "",
+      "abbr": "K. pneumoniae"
+    },
+    "shige": {
+      "genus": "Shigella",
+      "species": "+ EIEC",
+      "abbr": "Shigella+EIEC"
+    },
+    "decoli": {
+      "genus": "Escherichia coli",
+      "species": "(diarreogênica)",
+      "abbr": "E. coli (diarreogênica)"
+    },
+    "ecoli": {
+      "genus": "Escherichia coli",
+      "species": "",
+      "abbr": "E. coli"
+    },
+    "saureus": {
+      "genus": "Staphylococcus aureus",
+      "species": "",
+      "abbr": "S. aureus"
+    },
+    "strepneumo": {
+      "genus": "Streptococcus pneumoniae",
+      "species": "",
+      "abbr": "S. pneumoniae"
+    }
+  },
+  "selectOrganism": {
+    "placeholder": "Selecione um organismo"
+  },
+  "common": {
+    "search": "Pesquisar...",
+    "noDataToShow": "Sem dados para exibir",
+    "selectRegion": "Selecionar região",
+    "selectCountry": "Selecionar país",
+    "selectGenotype": "Selecionar genótipo",
+    "selectDrugs": "Selecionar medicamentos",
+    "selectKOType": "Selecionar tipo K/O",
+    "selectKOOptions": "Selecionar opções K/O",
+    "allRegions": "Todas as regiões",
+    "n20RegionsTooltip": "Mostrar apenas regiões com N≥20 genomas.",
+    "github": "GitHub",
+    "reset": "Redefinir aplicação",
+    "recenter": "Recentralizar",
+    "zoomIn": "Aumentar zoom",
+    "zoomOut": "Diminuir zoom",
+    "downloadData": "Baixar dados",
+    "downloadChart": "Baixar gráfico como PNG",
+    "downloadDataTSV": "Baixar dados (TSV)",
+    "downloadChartPNG": "Baixar gráfico (PNG)",
+    "share": "Compartilhar",
+    "shareMenu": {
+      "copied": "Copiado!",
+      "copyLink": "Copiar link",
+      "email": "Email"
+    },
+    "startYear": "Ano inicial",
+    "endYear": "Ano final",
+    "datasetAll": "Todos",
+    "datasetLocal": "Local",
+    "datasetTravel": "Viagem",
+    "changeYAxisLimits": "Alterar a escala do eixo Y",
+    "adjustYRange": "Ajustar intervalo do eixo Y (Mín-Máx)",
+    "dataZoomTooltip": "Recursos de zoom nos dados",
+    "select20": "Selecionar 20",
+    "selectDrug": "Selecionar medicamento",
+    "selectMarkers": "Selecionar marcadores",
+    "selectDrugsClasses": "Selecionar medicamentos/classes para exibir",
+    "selectDrugsClassesTooltip": "As frequências de resistência são exibidas apenas para anos com N≥10 genomas. Quando os dados por ano são insuficientes para calcular frequências anuais, não há pontos de dados para exibir.",
+    "selectCountriesRegions": "Selecionar países/regiões",
+    "selectCountriesRegionsDisplay": "Selecionar países/regiões para exibir",
+    "selectCountriesCompare": "Selecionar países (até 5)",
+    "selectCountriesCompareTooltip": "Selecione até 5 países para comparar seus perfis de AMR. Apenas locais com N≥20 são mostrados.",
+    "selectCountriesToCompare": "Selecione países para comparar perfis de AMR",
+    "selectLocationsToCompare": "Selecione locais para ver a comparação",
+    "compareBy": "Comparar por",
+    "columns": "Colunas",
+    "resistanceMarker": "Marcador de resistência",
+    "selectedOf": "{{selected}} de {{total}} selecionados",
+    "selectAll": "Selecionar todos",
+    "clearAll": "Limpar todos",
+    "selectedOfTotal": "{{selected}} de {{total}} selecionados",
+    "noYearSelected": "Nenhum ano selecionado",
+    "noDrugSelected": "Nenhum medicamento selecionado",
+    "navigateByLetter": "Navegue digitando a primeira letra do país/região.",
+    "allSelectedItems": "Todos os itens selecionados",
+    "selectRegionCountry": "Selecionar região/país",
+    "resistancePrevalence": "Prevalência de resistência",
+    "ngMastPrevalence": "Prevalência NG-MAST",
+    "dominantGenotype": "Genótipo dominante",
+    "selectDrugsToCompare": "Selecionar medicamentos para comparar",
+    "allCountries": "Todos os países",
+    "allCountriesInRegion": "Todos os países da região",
+    "selectACountry": "Selecionar um país"
+  },
+  "pdf": {
+    "reportInformation": "Informações do relatório",
+    "geographicComparisons": "Comparações geográficas"
+  },
+  "progressive": {
+    "largeDataset": "Conjunto de dados grande de E. coli ({{count}} registros) está carregando progressivamente para evitar travamento do navegador."
+  },
+  "drugs": {
+    "Ampicillin": "Ampicilina",
+    "Ampicillin/Amoxicillin": "Ampicilina/Amoxicilina",
+    "Aminoglycosides": "Aminoglicosídeos",
+    "Azithromycin": "Azitromicina",
+    "Benzylpenicillin": "Benzilpenicilina",
+    "Carbapenems": "Carbapenêmicos",
+    "Cefixime": "Cefixima",
+    "Ceftriaxone": "Ceftriaxona",
+    "Chloramphenicol": "Cloranfenicol",
+    "Ciprofloxacin": "Ciprofloxacina",
+    "Ciprofloxacin NS": "Ciprofloxacina (não suscetível)",
+    "Ciprofloxacin R": "Ciprofloxacina (resistente)",
+    "CipNS": "Ciprofloxacina (não suscetível)",
+    "CipR": "Ciprofloxacina (resistente)",
+    "Clindamycin": "Clindamicina",
+    "Colistin": "Colistina",
+    "Co-Trimoxazole": "Cotrimoxazol",
+    "Daptomycin": "Daptomicina",
+    "ESBL": "ESBL",
+    "Erythromycin": "Eritromicina",
+    "Fluoroquinolones": "Fluoroquinolonas",
+    "Fosfomycin": "Fosfomicina",
+    "Fusidic Acid": "Ácido fusídico",
+    "Gentamicin": "Gentamicina",
+    "H58": "H58",
+    "Kanamycin": "Canamicina",
+    "Linezolid": "Linezolida",
+    "MDR": "Multirresistente (MDR)",
+    "Macrolide": "Macrolídeo",
+    "Methicillin": "Meticilina",
+    "Moxifloxacin": "Moxifloxacino",
+    "Mupirocin": "Mupirocina",
+    "Pansusceptible": "Pansuscetível",
+    "Penicillin": "Penicilina",
+    "Rifampicin": "Rifampicina",
+    "Spectinomycin": "Espectinomicina",
+    "Sulfamethoxazole": "Sulfametoxazol",
+    "Sulfonamides": "Sulfonamidas",
+    "Susceptible": "Suscetível aos fármacos cat. I/II",
+    "Susceptible to cat I/II drugs": "Suscetível aos fármacos cat. I/II",
+    "Teicoplanin": "Teicoplanina",
+    "Tetracycline": "Tetraciclina",
+    "Tigecycline": "Tigeciclina",
+    "Tobramycin": "Tobramicina",
+    "Trimethoprim": "Trimetoprima",
+    "Trimethoprim-sulfamethoxazole": "Trimetoprima-sulfametoxazol",
+    "Trimethoprim-Sulfamethoxazole": "Trimetoprima-sulfametoxazol",
+    "Vancomycin": "Vancomicina",
+    "XDR": "Extensamente resistente (XDR)",
+    "Amikacin": "Amicacina",
+    "Quinolone": "Quinolona",
+    "Aminoglycoside": "Aminoglicosídeo",
+    "Beta-lactam": "Beta-lactâmico",
+    "Phenicol": "Fenicol",
+    "Carbapenem": "Carbapenem"
+  },
+  "globalOverview": {
+    "tabs": {
+      "map": "Mapa",
+      "barplot": "Gráfico de barras",
+      "barplotNoData": "Não há dados de fontes One Health disponíveis para este organismo."
+    }
+  }
+}

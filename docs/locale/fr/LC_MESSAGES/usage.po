@@ -1,0 +1,148 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) 2023, The AMRnet Team
+# This file is distributed under the same license as the AMRnet package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, 2025.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: AMRnet \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-09-01 10:38+0100\n"
+"PO-Revision-Date: 2025-09-01 09:53\n"
+"Last-Translator: AMRnet Team <amrnetdashboard@gmail.com>\n"
+"Language-Team: French\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+"X-Crowdin-Project: AMRnet\n"
+"X-Crowdin-Project-ID: 825302\n"
+"X-Crowdin-Language: fr\n"
+"X-Crowdin-File: usage.pot\n"
+"X-Crowdin-File-ID: 83\n"
+"Language: fr_FR\n"
+
+#: ../../usage.rst:2
+#: 7893c759c1db4e168e999c3c0be03541
+msgid "Dashboard overview"
+msgstr "Aperçu du tableau de bord"
+
+#: ../../usage.rst:5
+#: 51f4b365da0a4436af041f92deb7e9d0
+msgid "Header"
+msgstr "En-tête"
+
+#: ../../usage.rst:9
+#: 3ead080c282c4d34a73b79c972ff457d
+msgid "Use the menu to **select a species or pathogen group** to display. Each pathogen has its own dashboard configuration that is customised to show genotypes, resistances and other relevant parameters. Numbers indicate the total number of genomes and genotypes currently available in the selected dashboard."
+msgstr "Utilisez le menu pour **sélectionner une espèce ou un groupe d'agents pathogènes** à afficher. Chaque agent pathogène a sa propre configuration de tableau de bord qui est personnalisée pour montrer les génotypes, les résistances et d'autres paramètres pertinents. Les chiffres indiquent le nombre total de génomes et de génotypes actuellement disponibles dans le tableau de bord sélectionné."
+
+#: ../../usage.rst:11
+#: 65785a27811e431eb2dc97aca96f51d7
+msgid "header"
+msgstr "En-tête"
+
+#: ../../usage.rst:17
+#: f7467d90f1e94347bfed89ceda44bd42
+msgid "Map"
+msgstr "Carte"
+
+#: ../../usage.rst:21
+#: 591303c55c474da6ac998fb9c94f77ff
+msgid "Use the **Plotting options** panel on the right to **select a variable to display per-country summary data** on the world map. Prevalence data are pooled weighted estimates of proportion for the selected resistance or genotype. A country must have N≥20 samples (using the current filters) for summary data to be displayed otherwise, it will be coloured grey to indicate insufficient data are available."
+msgstr "Utilisez le panneau **Plotting options** à droite pour **sélectionner une variable pour afficher les données de résumé par pays** sur la carte du monde. Les données de prévalence sont regroupées des estimations pondérées de proportion pour la résistance sélectionnée ou le génotype. Un pays doit avoir des échantillons N<unk> 20 (en utilisant les filtres actuels) pour que les données sommaires soient affichées autrement, il sera coloré en gris pour indiquer que les données disponibles sont insuffisantes."
+
+#: ../../usage.rst:23
+#: 158cbd1a5874419b9e163c73976b5c7c
+msgid "Use the **Global Filter** panel on the left to recalculate summary data for a specific time period and/or subgroup/s (options available vary by pathogen). Filters set in the **Global Filter** panel apply not only to the map, but to all plots on the page."
+msgstr "Utilisez le panneau **Filtre global** à gauche pour recalculer les données sommaires pour une période spécifique et/ou un sous-groupe (options disponibles varient par pathogène). Les filtres définis dans le panneau **Filtre global** s'appliquent non seulement à la carte, mais à tous les plots de la page."
+
+#: ../../usage.rst:25
+#: 3c9200731dfc405380460aee2613ccfc
+msgid "**Clicking on a country in the map** also functions as a filter, so that the **Summary plots** in the panels below reflect data for the selected country only. Per-country values displayed in the map can be downloaded by clicking the downward-arrow button at the top right of the panel."
+msgstr "**En cliquant sur un pays de la carte** fonctionne aussi comme un filtre, afin que les **résumés plots** dans les panneaux ci-dessous reflètent les données pour le pays sélectionné seulement. Les valeurs par pays affichées dans la carte peuvent être téléchargées en cliquant sur le bouton flèche vers le bas en haut à droite du panneau."
+
+#: ../../usage.rst:27
+#: 668c6416d6a44b6983ac78a7a8c1e0b1
+msgid "**Plot-specific downloads:** The summary statistics currently displayed in the plot (e.g. resistance prevalence per country; with numerator, denominator and percentage) can be downloaded in tabular (TSV) format by clicking the down arrow (top-right of panel). A static image (PNG format) of the current map view can be downloaded by clicking the camera icon."
+msgstr "**Téléchargements spécifiques au point :** Les statistiques sommaires actuellement affichées dans le tracé (par ex. la prévalence de résistance par pays; avec le numérateur, le dénominateur et le pourcentage) peut être téléchargé au format tabulaire (TSV) en cliquant sur la flèche vers le bas (en haut à droite du panneau). Une image statique (format PNG) de la vue actuelle de la carte peut être téléchargée en cliquant sur l'icône de la caméra."
+
+#: ../../usage.rst:29
+#: 848f1fd14b0e4b4790178e1df865ed18
+msgid "map"
+msgstr "carte"
+
+#: ../../usage.rst:35
+#: 184f809f622842aabfefc1d2e4568210
+msgid "Summary plots"
+msgstr "Points sommaires"
+
+#: ../../usage.rst:39
+#: 97514eec48e14d498b3332f27f60752d
+msgid "This panel offers a series of summary plots. The default view is \"AMR trends\". **Click a plot title** in the rotating selector at the top of the panel, to choose a different plot. The specific plots available vary by pathogen, as do the definitions of AMR and genotype variables (see individual :ref:`pathogen details <individual_pathogen_details>`). Summary plots are intended to show region- or country-level summaries, but if no country is selected they will populate with pooled estimates of proportion across all data passing the current filters."
+msgstr "Ce panneau propose une série de résumés de diagrammes. La vue par défaut est \"tendances AMR\". **Cliquez sur un titre de tracé** dans le sélecteur de rotation en haut du panneau, pour choisir un autre emplacement. Les parcelles spécifiques disponibles varient par pathogène, de même que les définitions des variables AMR et génotype (voir les détails individuels :ref:`pathogène <individual_pathogen_details>`). Les résumés des parcelles sont destinées à montrer les résumés de niveau régional ou national, mais si aucun pays n'est sélectionné, ils peupleront avec des estimations de proportion groupées à travers toutes les données passant les filtres actuels."
+
+#: ../../usage.rst:41
+#: 2e0f6a2ff3054fbb86b7c3940d31bea5
+msgid "All plots are interactive. Use the **Plotting options** panel on the right to modify the region/country to display, or to select other options available for the current plot such as which variables to display, and whether to show **counts or percentages**."
+msgstr "Toutes les parcelles sont interactives. Utilisez le panneau **Plottings** à droite pour modifier la région/pays à afficher, ou pour sélectionner d'autres options disponibles pour le tracé courant, telles que les variables à afficher, et si vous voulez afficher **nombre ou pourcentages**."
+
+#: ../../usage.rst:43
+#: d123c92a7e0d4da8832b148822cb0a82
+msgid "Line and bar plot have a dynamic legend to the right; click on an x-axis value to display counts and percentages of secondary variables calculated amongst genomes matching that x-axis value. For example, all pathogens have an ‘AMR by genotype’ plot; click a genotype to display counts and percentages of resistance estimated for each drug or class."
+msgstr "Le tracé de ligne et de barre ont une légende dynamique à droite ; cliquez sur une valeur de l'axe x pour afficher le nombre et les pourcentages des variables secondaires calculées parmi les génomes correspondant à cette valeur de l'axe X. Par exemple, tous les agents pathogènes ont une parcelle « AMR par génotype» ; cliquez sur un génotype pour afficher le nombre et les pourcentages de résistance estimés pour chaque médicament ou classe."
+
+#: ../../usage.rst:45
+#: 2f60d5a5fb5e4c81bffd54b5bbde5974
+msgid "**Plot-specific downloads:** Summarised values displayed in the current plot can be downloaded by clicking the down arrow button (top-right of panel). A static image (PNG format) of the current plotting view can be downloaded by clicking the camera icon."
+msgstr "**Téléchargements spécifiques au plot:** Les valeurs résumées affichées dans le graphique actuel peuvent être téléchargées en cliquant sur le bouton de la flèche vers le bas (en haut à droite du panneau). Une image statique (format PNG) de la vue de tracé actuelle peut être téléchargée en cliquant sur l'icône de la caméra."
+
+#: ../../usage.rst:50
+#: a1b74d085d0a486c85518e39fd36a9ab
+msgid "summary"
+msgstr "summary"
+
+#: ../../usage.rst:57
+#: a72198551a164029b10847d1dcfabff6
+msgid "Geographic comparisons"
+msgstr "Comparaisons géographiques"
+
+#: ../../usage.rst:61
+#: 790e16fa9e0844fdbfb7a36f046a06fb
+msgid "This panel uses heatmaps to explore how the prevalence of AMR or genotypes varies between countries or regions. The default view is AMR prevalence per country."
+msgstr "Ce panneau utilise des cartes thermiques pour étudier comment la prévalence de la RMA ou des génotypes varie d'un pays à l'autre. La vue par défaut est la prévalence AMR par pays."
+
+#: ../../usage.rst:63
+#: d973209c00fa4d5f9f11a717b2fe948f
+msgid "Use the **Plotting options** panel on the right to stratify rows by region rather than country, to view genotype prevalence instead of AMR (in columns). For some organisms, there is also the option to plot columns as resistance markers (for a selected drug)."
+msgstr "Utilisez le panneau **Plotting options** à droite pour stratifier les lignes par région plutôt que par pays, pour afficher la prévalence du génotype au lieu de AMR (en colonnes). Pour certains organismes, il y a aussi la possibilité de tracer des colonnes comme marqueurs de résistance (pour un médicament sélectionné)."
+
+#: ../../usage.rst:65
+#: dc66e8eb8d1448a98ee2c8f640be0bc0
+msgid "**Plotting options** can also be modified to restrict the view to selected countries or regions (in rows), or to specific subsets of genotypes or drugs (in columns). Countries are not plotted (and not available to select) if the number of samples passing the current global filter is below 20. By default, the 20 most common genotypes or drugs (passing current filters) will be included in the plot; in the drop-down list to modify the specific set of drugs or genotypes shown, the available options will be ordered by their frequency in the current selection."
+msgstr "Les **options de loting** peuvent également être modifiées pour restreindre la vue aux pays ou régions sélectionnés (en lignes), ou à des sous-ensembles spécifiques de génotypes ou de médicaments (en colonnes). Les pays ne sont pas tracés (et ne peuvent pas être sélectionnés) si le nombre d'échantillons qui passent le filtre global actuel est inférieur à 20. Par défaut, les 20 génotypes ou médicaments les plus courants (en passant par les filtres actuels) seront inclus dans la parcelle ; dans la liste déroulante pour modifier l'ensemble spécifique de médicaments ou de génotypes affichés, les options disponibles seront ordonnées selon leur fréquence dans la sélection courante."
+
+#: ../../usage.rst:67
+#: 993f0bd5756d4bb79a8f832e336697c0
+msgid "**Plot-specific downloads:** Summarised values displayed in the current heatmap can be downloaded by clicking the down arrow button (top-right of panel). A static image (PNG format) of the current plotting view can be downloaded by clicking the camera icon."
+msgstr "**Téléchargements spécifiques au plot:** Les valeurs résumées affichées dans la carte de chaleur actuelle peuvent être téléchargées en cliquant sur le bouton de la flèche vers le bas (en haut à droite du panneau). Une image statique (format PNG) de la vue de tracé actuelle peut être téléchargée en cliquant sur l'icône de la caméra."
+
+#: ../../usage.rst:69
+#: 86770ed64d63468b87ef43726011332d
+msgid "geographic_comparisons"
+msgstr "comparaisons géographiques"
+
+#: ../../usage.rst:75
+#: 13350a99d66343f48f23f5a136c13891
+msgid "Downloads"
+msgstr "Téléchargements"
+
+#: ../../usage.rst:79
+#: 8282fb8c7d504d57905a87a7529286a3
+msgid "At the bottom are buttons to download (1) the individual genome-level information that is used to populate the dashboard (‘Download database (TSV format)’); and (2) a static report of the currently displayed plots, together with a basic description of the data sources and variable definitions (‘Report view’)."
+msgstr "En bas se trouvent les boutons pour télécharger (1) les informations individuelles de niveau génomique qui sont utilisées pour remplir le tableau de bord (‘Télécharger la base de données au format TSV)’); et (2) un rapport statique des plots actuellement affichés, avec une description de base des sources de données et des définitions de variables (‘Télécharger PDF’)."
+
+#: ../../usage.rst:81
+#: 39b65142f602482fb989347873a7fb59
+msgid "downloads"
+msgstr "téléchargements"

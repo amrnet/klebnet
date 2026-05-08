@@ -1,0 +1,364 @@
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
+import CheckBoxOutlineBlankIcon from '@mui/icons-material/CheckBoxOutlineBlank';
+import {
+  Autocomplete,
+  Box,
+  Card,
+  CardContent,
+  Checkbox,
+  Chip,
+  Divider,
+  MenuItem,
+  Select,
+  TextField,
+  ToggleButton,
+  ToggleButtonGroup,
+  Typography,
+  useMediaQuery,
+} from '@mui/material';
+import { useEffect, useState } from 'react';
+import { useTranslation } from 'react-i18next';
+import { useAppDispatch, useAppSelector } from '../../../../stores/hooks';
+import {
+  setActualTimeFinal,
+  setActualTimeInitial,
+  setCanFilterData,
+  setSelectedLineages,
+} from '../../../../stores/slices/dashboardSlice';
+import { setDataset, setDatasetKP } from '../../../../stores/slices/mapSlice.ts';
+import { amrLikeOrganisms } from '../../../../util/organismsCards';
+import { useStyles } from './TopLeftControlsMUI';
+
+const datasetOptions = ['All', 'Local', 'Travel'];
+
+export const TopLeftControls = ({ style, closeButton = null, title }) => {
+  const classes = useStyles();
+  const matches = useMediaQuery('(max-width:700px)');
+  const [currentSelectedLineages, setCurrentSelectedLineages] = useState([]);
+  const { t } = useTranslation();
+
+  const dispatch = useAppDispatch();
+  const dataset = useAppSelector(state => state.map.dataset);
+  const datasetKP = useAppSelector(state => state.map.datasetKP);
+  const actualTimeInitial = useAppSelector(state => state.dashboard.actualTimeInitial);
+  const actualTimeFinal = useAppSelector(state => state.dashboard.actualTimeFinal);
+  const yearsCompleteListToShowInGlobalFilter = useAppSelector(
+    state => state.dashboard.yearsCompleteListToShowInGlobalFilter,
+  );
+  const pathovar = useAppSelector(state => state.dashboard.pathovar);
+  const organism = useAppSelector(state => state.dashboard.organism);
+  const selectedLineages = useAppSelector(state => state.dashboard.selectedLineages);
+
+  useEffect(() => {
+    setCurrentSelectedLineages(selectedLineages);
+  }, [selectedLineages]);
+
+  // When the dataset filter changes (e.g. styphi ALL ↔ LOCAL ↔ TRAVEL,
+  // or kpneumo / sentericaints ALL ↔ ESBL+/CARBA+/ENTERITIDIS/...),
+  // the year range filter must be expanded back to the organism's full
+  // year range. Otherwise toggling to a narrow subset and back to ALL
+  // leaves actualTimeInitial / actualTimeFinal stuck at the narrow
+  // subset's year range, silently dropping records outside that
+  // window — the "Total genomes off by N" bug. (RESET button does the
+  // same reset, which is why RESET works while toggle-and-back doesn't.)
+  function resetYearRangeToFull() {
+    if (yearsCompleteListToShowInGlobalFilter.length > 0) {
+      dispatch(setActualTimeInitial(yearsCompleteListToShowInGlobalFilter[0]));
+      dispatch(
+        setActualTimeFinal(
+          yearsCompleteListToShowInGlobalFilter[yearsCompleteListToShowInGlobalFilter.length - 1],
+        ),
+      );
+    }
+  }
+
+  function handleChangeST(_event, newValue) {
+    if (newValue !== null) {
+      dispatch(setDataset(newValue));
+      resetYearRangeToFull();
+      dispatch(setCanFilterData(true));
+    }
+  }
+
+  function handleChangeKP(_event, newValue) {
+    if (newValue !== null) {
+      dispatch(setDatasetKP(newValue));
+      resetYearRangeToFull();
+      dispatch(setCanFilterData(true));
+    }
+  }
+
+  function handleChangeInitial(_event, child) {
+    dispatch(setActualTimeInitial(child.props.value));
+    dispatch(setCanFilterData(true));
+  }
+
+  function handleChangeFinal(_event, child) {
+    dispatch(setActualTimeFinal(child.props.value));
+    dispatch(setCanFilterData(true));
+  }
+
+  function handleChangeLineages(_, newValue) {
+    if (newValue === null) {
+      return;
+    }
+
+    dispatch(setSelectedLineages(newValue === 'all' ? pathovar : [newValue]));
+    // Same year-range fix as dataset toggles: changing the lineage filter
+    // (sentericaints / shige / decoli) narrows the visible year range,
+    // which then sticks when toggling back to "all". Reset to the full
+    // organism range so Total genomes is correct.
+    resetYearRangeToFull();
+    dispatch(setCanFilterData(true));
+  }
+
+  // Stable sentinel tokens for the two "meta" autocomplete rows; displayed
+  // via renderOption so we can translate them with t() at render time
+  // instead of hard-coding English in the options array (which would also
+  // break state equality when the user switches language).
+  const CLEAR_ALL_TOKEN = '__clear_all__';
+  const SELECT_ALL_TOKEN = '__select_all__';
+
+  function isAllOption(option) {
+    return option === CLEAR_ALL_TOKEN || option === SELECT_ALL_TOKEN;
+  }
+
+  function handleChangeMultiLineages(event, value) {
+    if (event.type === 'keydown') {
+      return;
+    }
+
+    if (!value.includes(CLEAR_ALL_TOKEN) && !value.includes(SELECT_ALL_TOKEN)) {
+      setCurrentSelectedLineages(value);
+      return;
+    }
+
+    if (value.includes(CLEAR_ALL_TOKEN)) {
+      setCurrentSelectedLineages([]);
+      return;
+    }
+
+    if (value.includes(SELECT_ALL_TOKEN)) {
+      setCurrentSelectedLineages(pathovar);
+    }
+  }
+
+  function handleCloseLineages(_) {
+    if (
+      currentSelectedLineages.length !== selectedLineages.length ||
+      currentSelectedLineages.some(item => !selectedLineages.includes(item))
+    ) {
+      dispatch(setSelectedLineages(currentSelectedLineages));
+      resetYearRangeToFull();
+      dispatch(setCanFilterData(true));
+    }
+  }
+
+  return (
+    <div className={`${classes.topLeftControls} ${matches && !closeButton ? classes.bp700 : ''}`} style={style}>
+      <Card elevation={3} className={classes.card}>
+        <CardContent className={classes.cardContent}>
+          <div className={classes.titleWrapper}>
+            <Typography variant="h6">{title || t('topLeftControls.title')}</Typography>
+            {closeButton}
+          </div>
+          <Typography variant="caption">{t('topLeftControls.appliedToPlots')}</Typography>
+          {organism !== 'styphi' ? null : (
+            <div className={classes.datasetWrapper}>
+              <Typography gutterBottom variant="caption">
+                {t('topLeftControls.selectDataset')}
+              </Typography>
+              <ToggleButtonGroup value={dataset} exclusive size="small" onChange={handleChangeST}>
+                {datasetOptions.map((option, index) => (
+                  <ToggleButton key={`dataset-${index}`} value={option} color="primary">
+                    {t(`common.dataset${option}`, option)}
+                  </ToggleButton>
+                ))}
+              </ToggleButtonGroup>
+            </div>
+          )}
+          {organism !== 'kpneumo' ? null : (
+            <div className={classes.datasetWrapper}>
+              <ToggleButtonGroup value={datasetKP} exclusive size="small" onChange={handleChangeKP}>
+                <ToggleButton value="All" color="primary">
+                  {t('common.datasetAll').toUpperCase()}
+                </ToggleButton>
+                <ToggleButton value="ESBL" color="primary">
+                  ESBL+
+                </ToggleButton>
+                <ToggleButton value="Carbapenems" color="primary">
+                  CARB+
+                </ToggleButton>
+              </ToggleButtonGroup>
+            </div>
+          )}
+          {!amrLikeOrganisms.filter(x => !['ecoli', 'senterica'].includes(x)).includes(organism) ? null : (
+            <div className={classes.datasetWrapper}>
+              <Typography gutterBottom variant="caption">
+                {organism === 'sentericaints'
+                  ? t('topLeftControls.selectSerotype')
+                  : t('topLeftControls.selectPathotype')}
+              </Typography>
+              {organism === 'decoli' ? (
+                <Autocomplete
+                  multiple
+                  disableCloseOnSelect
+                  value={currentSelectedLineages}
+                  options={
+                    currentSelectedLineages.length === pathovar.length
+                      ? [CLEAR_ALL_TOKEN, ...pathovar]
+                      : [SELECT_ALL_TOKEN, ...pathovar]
+                  }
+                  onChange={handleChangeMultiLineages}
+                  onClose={handleCloseLineages}
+                  limitTags={1}
+                  clearIcon={null}
+                  renderInput={params => (
+                    <TextField {...params} variant="standard" placeholder={t('topLeftControls.placeholder.select')} />
+                  )}
+                  slotProps={{
+                    popper: { placement: 'bottom-start', style: { width: 'fit-content' } },
+                  }}
+                  renderOption={(props, option, { selected }) => {
+                    const { key, ...optionProps } = props;
+                    const isAllButton = isAllOption(option);
+                    return (
+                      // eslint-disable-next-line jsx-a11y/role-supports-aria-props
+                      <li
+                        key={key}
+                        {...optionProps}
+                        aria-selected={isAllButton ? false : selected}
+                        className={`${optionProps.className} ${classes.lineageLi}`}
+                      >
+                        {!isAllButton && (
+                          <Checkbox
+                            icon={<CheckBoxOutlineBlankIcon fontSize="small" />}
+                            checkedIcon={<CheckBoxIcon fontSize="small" />}
+                            sx={{ marginRight: '8px', padding: 0 }}
+                            checked={selected}
+                          />
+                        )}
+                        {option === CLEAR_ALL_TOKEN
+                          ? t('common.clearAll')
+                          : option === SELECT_ALL_TOKEN
+                            ? t('common.selectAll')
+                            : option}
+                      </li>
+                    );
+                  }}
+                  renderTags={(value, getTagProps) => (
+                    <Box sx={{ maxHeight: 80, overflowY: 'auto' }}>
+                      {value.map((option, index) => {
+                        const { key, ...tagProps } = getTagProps({ index });
+                        return <Chip key={key} label={option} {...tagProps} onDelete={undefined} />;
+                      })}
+                    </Box>
+                  )}
+                  sx={{
+                    '@media (min-width: 700px)': {
+                      maxWidth: '165px',
+                    },
+                    '& .MuiAutocomplete-tag': {
+                      maxHeight: 30,
+                    },
+                    '& .MuiAutocomplete-inputRoot': {
+                      paddingRight: '0px !important',
+                    },
+                    '& .MuiAutocomplete-inputRoot .MuiAutocomplete-input': {
+                      width: '100% !important',
+                    },
+                  }}
+                />
+              ) : (
+                <>
+                  <ToggleButtonGroup
+                    value={selectedLineages.length === pathovar.length ? 'all' : selectedLineages[0]}
+                    size="small"
+                    onChange={handleChangeLineages}
+                    orientation="vertical"
+                    exclusive
+                  >
+                    <ToggleButton value="all" color="primary" className={classes.toggleButton}>
+                      {t('common.datasetAll')}
+                    </ToggleButton>
+                    {pathovar.map((option, index) => (
+                      <ToggleButton
+                        key={`dataset-${index}`}
+                        value={option}
+                        color="primary"
+                        className={classes.toggleButton}
+                      >
+                        {option}
+                      </ToggleButton>
+                    ))}
+                  </ToggleButtonGroup>
+                </>
+              )}
+            </div>
+          )}
+          <div className={classes.yearsWrapper}>
+            <div className={classes.yearWrapper}>
+              <Typography gutterBottom variant="caption">
+                {t('common.startYear')}
+              </Typography>
+              <Select
+                variant="standard"
+                inputProps={{ className: classes.selectInput }}
+                MenuProps={{
+                  classes: {
+                    paper: classes.menuPaper,
+                    list: classes.selectMenu,
+                  },
+                }}
+                value={actualTimeInitial}
+                onChange={handleChangeInitial}
+                fullWidth
+                disabled={organism === 'none'}
+              >
+                {yearsCompleteListToShowInGlobalFilter
+                  .filter(year => year <= actualTimeFinal)
+                  .map((year, index) => {
+                    return (
+                      <MenuItem key={`initial-year-${index}`} value={year}>
+                        {year}
+                      </MenuItem>
+                    );
+                  })}
+              </Select>
+            </div>
+            <Divider orientation="vertical" flexItem />
+            <div className={classes.yearWrapper}>
+              <Typography gutterBottom variant="caption">
+                {t('common.endYear')}
+              </Typography>
+              <Select
+                variant="standard"
+                inputProps={{ className: classes.selectInput }}
+                MenuProps={{
+                  classes: {
+                    paper: classes.menuPaper,
+                    list: classes.selectMenu,
+                  },
+                }}
+                value={actualTimeFinal}
+                onChange={handleChangeFinal}
+                fullWidth
+                disabled={organism === 'none'}
+              >
+                {yearsCompleteListToShowInGlobalFilter
+                  .filter(year => year >= actualTimeInitial)
+                  .map((year, index) => {
+                    return (
+                      <MenuItem key={`final-year-${index}`} value={year}>
+                        {year}
+                      </MenuItem>
+                    );
+                  })}
+              </Select>
+            </div>
+          </div>
+        </CardContent>
+      </Card>
+    </div>
+  );
+};
