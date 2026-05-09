@@ -45,16 +45,19 @@ import { amrLikeOrganisms } from '../../util/organismsCards';
  * @returns {Promise<Array>} - Results from all chunks
  */
 // Ciprofloxacin mechanism patterns — shared across year/genotype/country/
-// drug-class aggregations. Count how many ";"-separated markers in a
-// Quinolone cell look like a QRDR mutation (gyrA/B, parC/E), a qnr gene,
-// or aac(6')-Ib-cr. CipNS = ≥1 marker, CipR = ≥2 markers.
+// drug-class aggregations. Count how many markers in a Quinolone cell look
+// like a QRDR mutation (gyrA/B, parC/E), a qnr gene, or aac(6')-Ib-cr.
+// CipNS = ≥1 marker, CipR = ≥2 markers. Marker cells use either ';' or ','
+// as the inter-gene delimiter depending on the upstream pipeline (Kleborate
+// uses ';', some KlebNET-GSP exports use ', ') so split on either.
 const _QRDR_RE = /gyr[AB]|par[CE]/i;
 const _QNR_RE = /qnr[A-Z]/i;
 const _AAC_CR_RE = /aac.*Ib.*cr/i;
+const _MARKER_DELIM = /\s*[;,]\s*/;
 function countQuinoloneMarkers(raw) {
   if (!raw || raw === '-' || raw === 'ND') return 0;
   let n = 0;
-  String(raw).split(';').forEach(e => {
+  String(raw).split(_MARKER_DELIM).forEach(e => {
     const g = e.trim();
     if (!g) return;
     if (_QRDR_RE.test(g) || _QNR_RE.test(g) || _AAC_CR_RE.test(g)) n++;
@@ -70,7 +73,7 @@ function countQuinoloneMarkers(raw) {
 function extractQuinoloneMarkers(raw) {
   if (!raw || raw === '-' || raw === 'ND') return [];
   const out = [];
-  String(raw).split(';').forEach(e => {
+  String(raw).split(_MARKER_DELIM).forEach(e => {
     const g = e.trim();
     if (!g) return;
     if (_QRDR_RE.test(g) || _QNR_RE.test(g) || _AAC_CR_RE.test(g)) out.push(g);
@@ -98,7 +101,7 @@ function evaluateECOLIRule(item, rule) {
     if (raw == null || raw === '' || raw === '-') return false;
     const re = new RegExp(rule.match);
     return String(raw)
-      .split(';')
+      .split(_MARKER_DELIM)
       .map(s => s.trim())
       .some(gene => gene && re.test(gene));
   }
@@ -115,7 +118,7 @@ function evaluateECOLIRule(item, rule) {
     if (!rule.excludeGenes?.length) return false;
     const excluded = new Set(rule.excludeGenes);
     return String(raw)
-      .split(';')
+      .split(_MARKER_DELIM)
       .map(s => s.trim())
       .every(gene => !gene || excluded.has(gene));
   }
@@ -125,7 +128,7 @@ function evaluateECOLIRule(item, rule) {
   if (!rule.excludeGenes?.length) return true;
   const excluded = new Set(rule.excludeGenes);
   return String(raw)
-    .split(';')
+    .split(_MARKER_DELIM)
     .map(s => s.trim())
     .some(gene => gene && !excluded.has(gene));
 }
@@ -557,7 +560,7 @@ function getMapStatsData({
       rawValues
         .filter(val => val !== '-')
         .join(';')
-        .split(';'),
+        .split(_MARKER_DELIM),
     );
 
     resistantGenomeCount++;
@@ -2405,12 +2408,12 @@ function getMarkerDrugClassData({ drugKey, dataToFilter, markerRules, fallbackDr
 
   dataToFilter.forEach(record => {
     const acquiredGenes = record.Acquired
-      ? record.Acquired.split(';')
+      ? record.Acquired.split(_MARKER_DELIM)
           .map(s => s.trim())
           .filter(Boolean)
       : [];
     const variantsList = record.Variants
-      ? record.Variants.split(';')
+      ? record.Variants.split(_MARKER_DELIM)
           .map(s => s.trim())
           .filter(Boolean)
       : [];

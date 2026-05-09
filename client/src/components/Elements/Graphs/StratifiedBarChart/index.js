@@ -1,0 +1,1 @@
+export { StratifiedBarChart } from './StratifiedBarChart';
