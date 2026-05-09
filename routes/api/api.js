@@ -63,6 +63,12 @@ router.get('/getDataForKpneumo', async function (req, res) {
       K_locus: 1,
       O_type: 1,
       NAME: 1,
+      // Stratification fields surfaced by the Global Overview bar plot
+      Host: 1,
+      'Host tissue sampled': 1,
+      Infection: 1,
+      'Selected clinical phenotype': 1,
+      'Selected by organism trait': 1,
       _id: 0,
     };
 
@@ -85,6 +91,51 @@ router.get('/getDataForKpneumo', async function (req, res) {
     });
   } catch (error) {
     console.error(error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
+
+// Whitelist of fields the Global Overview bar plot can stratify by.
+// Hard-coded (rather than echoing arbitrary query strings into a Mongo
+// pipeline) to prevent injection / accidental scans of huge fields.
+const STRATIFY_FIELDS = new Set([
+  'Host',
+  'Host tissue sampled',
+  'Infection',
+  'Selected clinical phenotype',
+  'Selected by organism trait',
+]);
+
+router.get('/getStratifiedCounts', async function (req, res) {
+  const stratifyBy = req.query.stratifyBy;
+  if (!STRATIFY_FIELDS.has(stratifyBy)) {
+    return res.status(400).json({ error: `stratifyBy must be one of: ${[...STRATIFY_FIELDS].join(', ')}` });
+  }
+
+  const { dbName, collectionName } = dbAndCollectionNames['kpneumo'];
+  try {
+    const client = await connectDB();
+    const collection = client.db(dbName).collection(collectionName);
+
+    const pipeline = [
+      { $match: { 'dashboard view': 'include' } },
+      {
+        $group: {
+          _id: { $ifNull: [`$${stratifyBy}`, 'Unknown'] },
+          count: { $sum: 1 },
+        },
+      },
+      { $sort: { count: -1 } },
+      { $limit: 50 },
+    ];
+
+    const rows = await collection.aggregate(pipeline).toArray();
+    return res.json({
+      stratifyBy,
+      data: rows.map(r => ({ label: r._id ?? 'Unknown', count: r.count })),
+    });
+  } catch (error) {
+    console.error('[getStratifiedCounts]', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });

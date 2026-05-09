@@ -28,7 +28,7 @@ export const MainLayout = ({ children }) => {
         {(loadingData || loadingMap) && (
           <div className={classes.loading}>
             <Circles color="#2f539f" height={60} width={60} />
-            <p style={{ marginTop: '16px', color: '#6F2F9F', fontSize: '14px', textAlign: 'center' }}>
+            <p style={{ marginTop: '16px', color: '#2f539f', fontSize: '14px', textAlign: 'center' }}>
               {t('layout.loadingThanks')}
             </p>
           </div>
