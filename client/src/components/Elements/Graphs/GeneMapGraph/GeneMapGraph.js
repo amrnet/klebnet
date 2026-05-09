@@ -21,25 +21,44 @@ const FALLBACK_REGIONS = {
   'Curacao': 'Caribbean', 'Taiwan': 'Eastern Asia', 'Kosovo': 'Southern Europe', 'Macau': 'Eastern Asia',
 };
 
-// Gene class definitions: which acquired fields to parse for each class
+// Gene class definitions: which acquired fields to parse for each class.
+// Carbapenemases reads Bla_Carb_acquired but excludes Omp* porin mutations
+// that Kleborate stuffs into that cell. Porin mutations also scans the
+// Bla_Carb_acquired cell so those Omp calls show up in the Porin chart.
 const GENE_CLASSES = {
-  Carbapenemases: { fields: ['Bla_Carb_acquired'], label: 'Carbapenemase enzymes' },
+  Carbapenemases: { fields: ['Bla_Carb_acquired'], label: 'Carbapenemase enzymes', filter: 'excludePorin' },
   ESBLs: { fields: ['Bla_ESBL_acquired'], label: 'ESBL enzymes' },
   Aminoglycosides: { fields: ['AGly_acquired'], label: 'Aminoglycoside resistance genes' },
   'Fluoroquinolone (acquired)': { fields: ['Flq_acquired'], label: 'Acquired fluoroquinolone resistance' },
   'Fluoroquinolone (mutations)': { fields: ['Flq_mutations'], label: 'Fluoroquinolone resistance mutations' },
   'Colistin (acquired)': { fields: ['Col_acquired'], label: 'Acquired colistin resistance genes' },
   'Colistin (mutations)': { fields: ['Col_mutations'], label: 'Colistin resistance mutations' },
-  'Porin mutations': { fields: ['Omp_mutations'], label: 'Outer membrane porin mutations' },
+  'Porin mutations': { fields: ['Omp_mutations', 'Bla_Carb_acquired'], label: 'Outer membrane porin mutations', filter: 'porinOnly' },
   'SHV mutations': { fields: ['SHV_mutations'], label: 'SHV beta-lactamase mutations' },
 };
 
-function parseGenes(value) {
+// klebnet exports use ', ' between gene calls; legacy amrnet kpneumo dumps
+// use ';'. Accept either. (fragment) / (homolog) suffixes are noise.
+const GENE_DELIM = /\s*[;,]\s*/;
+const GENE_NOISE_SUFFIX = /\s*\((?:fragment|homolog)\)\s*/gi;
+const PORIN_PREFIX_RE = /^Omp[A-Z]?\d/;
+
+function parseGenes(value, options = {}) {
   if (!value || value === '-' || value === 'ND') return [];
-  return value
-    .split(';')
-    .map(g => g.replace(/\..*$/, '').replace(/[\^*?$]/g, '').trim())
+  let out = value
+    .split(GENE_DELIM)
+    .map(g => {
+      const cleaned = String(g).replace(GENE_NOISE_SUFFIX, '').trim();
+      if (cleaned.includes(':')) return cleaned; // mutation-style call
+      return cleaned.replace(/\..*$/, '').replace(/[\^*?$]/g, '');
+    })
     .filter(Boolean);
+  if (options.filter === 'excludePorin') {
+    out = out.filter(g => !PORIN_PREFIX_RE.test(g));
+  } else if (options.filter === 'porinOnly') {
+    out = out.filter(g => PORIN_PREFIX_RE.test(g));
+  }
+  return out;
 }
 
 function getPrevalenceColor(value) {
@@ -121,10 +140,11 @@ export const GeneMapGraph = ({ showFilter, setShowFilter }) => {
         config.fields.some(field => item[field] && item[field] !== '-' && item[field] !== 'ND'),
       );
 
-      // Parse individual genes
+      // Parse individual genes (apply class-level filter so e.g. Carbapenemases
+      // exclude Omp* porin calls that Kleborate stuffs into Bla_Carb_acquired)
       items.forEach(item => {
         config.fields.forEach(field => {
-          const genes = parseGenes(item[field]);
+          const genes = parseGenes(item[field], { filter: config.filter });
           genes.forEach(gene => {
             geneSet.add(gene);
             if (!locGeneCount[loc][gene]) locGeneCount[loc][gene] = 0;

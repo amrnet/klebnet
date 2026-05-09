@@ -2338,17 +2338,29 @@ export function getConvergenceData({ data, groupVariable, colourVariable }) {
 }
 
 // Define Replace function
+// Suffixes the upstream Kleborate / KlebNET-GSP exports add to gene calls
+// to signal partial / homologous matches. They are noise for the dashboard's
+// per-marker count axes — strip them so e.g. "strA" and "strA (homolog)"
+// collapse into a single bucket.
+const _GENE_SUFFIX_NOISE = /\s*\((?:fragment|homolog)\)\s*/gi;
+
+// Porin mutations are reported by Kleborate inside the Bla_Carb_acquired
+// cell when they reduce carbapenem susceptibility, but they are NOT acquired
+// β-lactamases — they are intrinsic chromosomal mutations. The Carbapenems
+// marker chart should not list them; the Porin Mutations chart should.
+const _PORIN_PREFIX_RE = /^Omp[A-Z]?\d/;
+const isPorinMarker = gene => _PORIN_PREFIX_RE.test(String(gene ?? '').trim());
+
 function removeChars(genes) {
   return genes
     .map(gene => {
-      // Trim whitespace first so "qnrB19" and " qnrB19" (split off "a; b")
-      // do not become distinct heatmap columns for the same marker.
-      const trimmed = String(gene ?? '').trim();
-      if (trimmed.includes(':')) {
-        return trimmed;
+      const cleaned = String(gene ?? '').replace(_GENE_SUFFIX_NOISE, '').trim();
+      if (cleaned.includes(':')) {
+        // Mutation-style call (gene:p.X123Y) — keep verbatim aside from the
+        // (fragment)/(homolog) cleanup above.
+        return cleaned;
       }
-
-      return trimmed
+      return cleaned
         .replace(/\..*$/, '') // Remove from . onward
         .replace(/[\^*?$]/g, ''); // Remove ^, *, ?, and $
     })
@@ -2359,25 +2371,47 @@ function getKPDrugClassData({ drugKey, dataToFilter }) {
   const drugClass = {};
   const drug = drugRulesKP.concat(drugRulesKPOnlyMarkers).find(x => x.key === drugKey);
   const columnIDs = [...drug.columnIDs];
-  const splitChar = ';';
+
+  // Kleborate quirk: porin (Omp*) mutations are reported inside the
+  // Bla_Carb_acquired cell even though they are not acquired β-lactamases.
+  //   - Carbapenems chart: must EXCLUDE Omp* (otherwise inflates Carb counts).
+  //   - Porin mutations chart: must INCLUDE Omp* values from Bla_Carb_acquired
+  //     in addition to its own Omp_mutations column (otherwise the chart
+  //     misses ~700 records where the only porin call is sitting in the
+  //     Carb cell).
+  const isCarbapenemsLike = drugKey === 'Carbapenems' || columnIDs.includes('Bla_Carb_acquired');
+  const isPorinMutations = drugKey === 'Porin mutations';
+  const extraScanColumns = isPorinMutations ? ['Bla_Carb_acquired'] : [];
 
   let resistantCount = 0;
 
   dataToFilter.forEach(x => {
-    const columnsValues = columnIDs.map(id => x[id]).filter(val => val !== 'ND');
+    const primary = columnIDs.map(id => x[id]).filter(val => val !== 'ND');
+    const extras = extraScanColumns.map(id => x[id]).filter(val => val !== 'ND' && val !== '-');
 
-    // skip if all are "-"
-    if (columnsValues.every(value => value === '-')) return;
+    if (primary.every(value => value === '-') && extras.length === 0) return;
 
-    // skip if `every` flag requires no "-" allowed
-    if ('every' in drug && columnsValues.some(value => value === '-')) return;
+    if ('every' in drug && primary.some(value => value === '-')) return;
 
-    const genes = removeChars(
-      columnsValues
+    // Split on either ';' or ',' (klebnet exports use ', '); strip
+    // (fragment)/(homolog) noise via removeChars.
+    let genes = removeChars(
+      primary
+        .concat(extras)
         .filter(val => val !== '-')
-        .join(splitChar)
-        .split(splitChar),
+        .join(';')
+        .split(_MARKER_DELIM),
     );
+
+    if (isCarbapenemsLike) {
+      genes = genes.filter(g => !isPorinMarker(g));
+    } else if (isPorinMutations) {
+      // Porin chart is *only* about porin markers. Anything we pulled out of
+      // Bla_Carb_acquired that isn't an Omp* call is noise here.
+      genes = genes.filter(isPorinMarker);
+    }
+
+    if (genes.length === 0) return;
 
     resistantCount++;
     genes.forEach(gene => {

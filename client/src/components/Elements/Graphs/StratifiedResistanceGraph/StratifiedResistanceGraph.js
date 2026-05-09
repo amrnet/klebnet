@@ -44,11 +44,13 @@ function translateShigeLINcode(rawValue) {
 const QRDR_RE = /gyr[AB]|par[CE]/i;
 const QNR_RE = /qnr[A-Z]/i;
 const AAC_CR_RE = /aac.*Ib.*cr/i;
+// klebnet exports use ', ' between markers; legacy amrnet kpneumo uses ';'.
+const MARKER_DELIM = /\s*[;,]\s*/;
 function countQuinoloneMarkers(raw) {
   if (!raw || raw === '-' || raw === 'ND') return 0;
   let n = 0;
   String(raw)
-    .split(';')
+    .split(MARKER_DELIM)
     .forEach(e => {
       const g = e.trim();
       if (!g) return;
